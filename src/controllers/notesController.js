@@ -103,11 +103,3 @@ const note = await Note.findOneAndDelete({
 
   res.status(200).json(note);
 };
-export const createStudent = async (req, res) => {
-  const note = await Note.create({
-    ...req.body,
-    userId: req.user._id,
-  });
-
-  res.status(201).json(note);
-};
