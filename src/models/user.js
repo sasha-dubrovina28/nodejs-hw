@@ -1,16 +1,20 @@
-import { model, Schema } from 'mongoose';
+import { model, Schema } from "mongoose";
+
 const userSchema = new Schema(
   {
-    username: { type: String, trim: true },
-    email: { type: String, required: true, unique: true, trim: true },
-    password: { type: String, minlength: 8, required: true },
+    username: { type: String, required: false },
+    email: { type: String, unique: true, required: true },
+    password: { type: String, required: true },
+    avatar: {
+      type: String,
+      required: false,
+      default: "https://ac.goit.global/fullstack/react/default-avatar.jpg",
+    },
   },
-  { timestamps: true },
+  { timestamps: true }
 );
 userSchema.pre('save', function () {
-  if (this.isNew && !this.username) {
-    this.username = this.email;
-  }
+  this.username = this.email;
 });
 
 userSchema.methods.toJSON = function () {
